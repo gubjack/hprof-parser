@@ -80,6 +80,8 @@ public interface RecordHandler {
 
   public abstract void heapDumpSegment();
 
+  public abstract void heapDumpSegmentEnd();
+
   public abstract void cpuSamples(int totalNumOfSamples, CPUSample[] samples);
 
   public abstract void controlSettings(int bitMaskFlags, short stackTraceDepth);

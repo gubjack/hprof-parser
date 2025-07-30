@@ -294,7 +294,7 @@ public class HprofParser {
       case 0x2c:
         // Heap dump end (of segments)
         if (!isFirstPass) {
-          handler.heapDumpEnd();
+          handler.heapDumpSegmentEnd();
         }
         break;
 

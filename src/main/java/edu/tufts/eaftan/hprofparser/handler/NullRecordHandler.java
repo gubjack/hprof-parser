@@ -86,6 +86,9 @@ public class NullRecordHandler implements RecordHandler {
   public void heapDumpSegment() {}
 
   @Override
+  public void heapDumpSegmentEnd() {}
+
+  @Override
   public void cpuSamples(int totalNumOfSamples, CPUSample[] samples) {}
 
   @Override
