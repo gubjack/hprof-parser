@@ -16,8 +16,6 @@
 
 package edu.tufts.eaftan.hprofparser.handler.examples;
 
-import com.google.common.collect.ImmutableList;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -32,19 +30,19 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.net.URISyntaxException;
-import java.util.List;
 
 /**
  * Runs all example handlers on the test file and ensures they don't crash.
  */
 public class AllExampleHandlersTest {
   
-  private static final List<RecordHandler> ALL_HANDLERS = ImmutableList.<RecordHandler>of(
+  private static final RecordHandler[] ALL_HANDLERS = new RecordHandler[] {
       new NullRecordHandler(),
       new PrintHandler(),
       new RootHandler(),
       new StaticPrintHandler(),
-      new StatisticsCollectingHandler());
+      new StatisticsCollectingHandler()
+  };
     
   private static String getAbsolutePathForResource(String relativePath) throws URISyntaxException {
     return new File(ClassLoader.getSystemResource(relativePath).toURI()).getAbsolutePath();

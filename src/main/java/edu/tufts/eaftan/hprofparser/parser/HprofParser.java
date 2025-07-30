@@ -16,8 +16,6 @@
 
 package edu.tufts.eaftan.hprofparser.parser;
 
-import com.google.common.base.Preconditions;
-
 import edu.tufts.eaftan.hprofparser.handler.RecordHandler;
 import edu.tufts.eaftan.hprofparser.parser.datastructures.AllocSite;
 import edu.tufts.eaftan.hprofparser.parser.datastructures.CPUSample;
@@ -453,7 +451,7 @@ public class HprofParser {
         /* Constants */
         s1 = in.readShort();    // number of constants
         bytesRead += 2;
-        Preconditions.checkState(s1 >= 0);
+        checkState(s1 >= 0);
         Constant[] constants = new Constant[s1];
         for (int i=0; i<s1; i++) {
           short constantPoolIndex = in.readShort();
@@ -516,7 +514,7 @@ public class HprofParser {
         /* Statics */
         s2 = in.readShort();    // number of static fields
         bytesRead += 2;
-        Preconditions.checkState(s2 >= 0);
+        checkState(s2 >= 0);
         Static[] statics = new Static[s2];
         for (int i=0; i<s2; i++) {
           long staticFieldNameStringId = readId(idSize, in);
@@ -579,7 +577,7 @@ public class HprofParser {
         /* Instance fields */
         s3 = in.readShort();    // number of instance fields
         bytesRead += 2;
-        Preconditions.checkState(s3 >= 0);
+        checkState(s3 >= 0);
         InstanceField[] instanceFields = new InstanceField[s3];
         for (int i=0; i<s3; i++) {
           long fieldNameStringId = readId(idSize, in);
@@ -610,7 +608,7 @@ public class HprofParser {
         i1 = in.readInt();
         l2 = readId(idSize, in);    // class obj id
         i2 = in.readInt();    // num of bytes that follow
-        Preconditions.checkState(i2 >= 0);
+        checkState(i2 >= 0);
         bArr1 = new byte[i2];
         in.readFully(bArr1);
         
@@ -633,7 +631,7 @@ public class HprofParser {
         i2 = in.readInt();    // number of elements
         l2 = readId(idSize, in);
 
-        Preconditions.checkState(i2 >= 0);
+        checkState(i2 >= 0);
         lArr1 = new long[i2];
         for (int i=0; i<i2; i++) {
           lArr1[i] = readId(idSize, in);
@@ -652,7 +650,7 @@ public class HprofParser {
         b1 = in.readByte();
         bytesRead += idSize + 9;
 
-        Preconditions.checkState(i2 >= 0);
+        checkState(i2 >= 0);
         Value<?>[] vs = new Value[i2];
         Type t = Type.hprofTypeToEnum(b1);
         for (int i=0; i<vs.length; i++) {
@@ -808,6 +806,11 @@ public class HprofParser {
     return bytesRead;
   }
 
+  public static void checkState(boolean expression) {
+    if (!expression) {
+      throw new IllegalStateException();
+    }
+  }
 
 }
 

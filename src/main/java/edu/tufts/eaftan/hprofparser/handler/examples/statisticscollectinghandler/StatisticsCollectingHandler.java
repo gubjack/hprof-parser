@@ -16,8 +16,6 @@
 
 package edu.tufts.eaftan.hprofparser.handler.examples.statisticscollectinghandler;
 
-import com.google.common.primitives.Ints;
-
 import edu.tufts.eaftan.hprofparser.handler.NullRecordHandler;
 
 import edu.tufts.eaftan.hprofparser.parser.datastructures.Constant;
@@ -108,7 +106,7 @@ public class StatisticsCollectingHandler extends NullRecordHandler {
     Comparator<TypeInfo> totalSizeComparator = new Comparator<TypeInfo>() {
       @Override
       public int compare(TypeInfo cls1, TypeInfo cls2) {
-        return Ints.checkedCast(cls2.totalSize() - cls1.totalSize());
+        return checkedCast(cls2.totalSize() - cls1.totalSize());
       }
     };
     
@@ -122,6 +120,14 @@ public class StatisticsCollectingHandler extends NullRecordHandler {
       System.out.println(typeInfo.toString());
     }
   }
-   
+  public static int checkedCast(long value) {
+    int result = (int) value;
+    if (result != value) {
+      // don't use checkArgument here, to avoid boxing
+      throw new IllegalArgumentException("Out of range: " + value);
+    }
+    return result;
+  }
+
 
 }
